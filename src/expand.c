@@ -32,6 +32,8 @@
  * SUCH DAMAGE.
  */
 
+#define _LARGEFILE64_SOURCE
+
 #include <sys/types.h>
 #include <sys/time.h>
 #include <sys/stat.h>
@@ -1262,7 +1264,7 @@ expmeta(char *enddir, char *name)
 	int metaflag;
 	struct stat64 statb;
 	DIR *dirp;
-	struct dirent *dp;
+	struct dirent64 *dp;
 	int atend;
 	int matchdot;
 	int esc;
@@ -1343,7 +1345,7 @@ expmeta(char *enddir, char *name)
 		p++;
 	if (*p == '.')
 		matchdot++;
-	while (! int_pending() && (dp = readdir(dirp)) != NULL) {
+	while (! int_pending() && (dp = readdir64(dirp)) != NULL) {
 		if (dp->d_name[0] == '.' && ! matchdot)
 			continue;
 		if (pmatch(start, dp->d_name)) {

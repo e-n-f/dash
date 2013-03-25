@@ -112,6 +112,7 @@ AC_CHECK_FUNC(stat64,, [
 	AC_DEFINE(fstat64, fstat, [64-bit operations are the same as 32-bit])
 	AC_DEFINE(lstat64, lstat, [64-bit operations are the same as 32-bit])
 	AC_DEFINE(stat64, stat, [64-bit operations are the same as 32-bit])
+	AC_DEFINE(readdir64, readdir, [64-bit operations are the same as 32-bit])
 ])
 
 AC_CHECK_FUNC(open64,, [

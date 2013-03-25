@@ -32,6 +32,8 @@
  * SUCH DAMAGE.
  */
 
+#define _LARGEFILE64_SOURCE
+
 #include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -132,7 +134,7 @@ INIT {
 	char **envp;
 	static char ppid[32] = "PPID=";
 	const char *p;
-	struct stat st1, st2;
+	struct stat64 st1, st2;
 
 	initvar();
 	for (envp = environ ; *envp ; envp++) {
@@ -147,7 +149,7 @@ INIT {
 
 	p = lookupvar("PWD");
 	if (p)
-		if (*p != '/' || stat(p, &st1) || stat(".", &st2) ||
+		if (*p != '/' || stat64(p, &st1) || stat64(".", &st2) ||
 		    st1.st_dev != st2.st_dev || st1.st_ino != st2.st_ino)
 			p = 0;
 	setpwd(p, 0);

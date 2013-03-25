@@ -32,6 +32,8 @@
  * SUCH DAMAGE.
  */
 
+#define _LARGEFILE64_SOURCE
+
 #include <stdio.h>
 #include <signal.h>
 #include <sys/stat.h>
@@ -294,14 +296,14 @@ find_dot_file(char *basename)
 {
 	char *fullname;
 	const char *path = pathval();
-	struct stat statb;
+	struct stat64 statb;
 
 	/* don't try this for absolute or relative paths */
 	if (strchr(basename, '/'))
 		return basename;
 
 	while ((fullname = padvance(&path, basename)) != NULL) {
-		if ((stat(fullname, &statb) == 0) && S_ISREG(statb.st_mode)) {
+		if ((stat64(fullname, &statb) == 0) && S_ISREG(statb.st_mode)) {
 			/*
 			 * Don't bother freeing here, since it will
 			 * be freed by the caller.

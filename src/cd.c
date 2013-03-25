@@ -32,6 +32,8 @@
  * SUCH DAMAGE.
  */
 
+#define _LARGEFILE64_SOURCE
+
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <stdlib.h>
@@ -93,7 +95,7 @@ cdcmd(int argc, char **argv)
 	const char *path;
 	const char *p;
 	char c;
-	struct stat statb;
+	struct stat64 statb;
 	int flags;
 
 	flags = cdopt();
@@ -127,7 +129,7 @@ dotdot:
 	while (path) {
 		c = *path;
 		p = padvance(&path, dest);
-		if (stat(p, &statb) >= 0 && S_ISDIR(statb.st_mode)) {
+		if (stat64(p, &statb) >= 0 && S_ISDIR(statb.st_mode)) {
 			if (c && c != ':')
 				flags |= CD_PRINT;
 docd:
